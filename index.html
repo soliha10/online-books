@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Books</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-zinc-800">
+
+
+  <header class="pt-5 pb-3" id="top">
+
+    <div class="container mx-auto w-[1240px] px-5">
+      <form class="js-search-book" method="GET" action="#" autocomplete="off">
+  
+        <div class="flex justify-between">
+          <input class="js-search-book-title me-2 w-[230px] py-1 px-2 rounded" type="search" name="book_title" aria-label="Search book" placeholder="Search for book" >
+  
+          <select class="js-book-genres me-2 w-[220px] px-2 rounded" aria-label="Choose book genre">
+            <option value="all">All</option>
+          </select>
+          <input class="js-min-year me-2 w-[220px] px-2 rounded" type="number" min="-1700" aria-label="enter year of book" placeholder="From year" >
+          <input class="js-max-year me-2 w-[220px] px-2 rounded" type="number" max="1995" aria-label="enter year of book" placeholder="To year" >
+          <select class="js-book-sort me-2 w-[220px] px-2 rounded" aria-label="sort books">
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+  
+            <option value="oldest-latest">Oldest-Latest</option>
+            <option value="latest-oldest">Latest-Oldest</option>
+  
+            <option value="less-more">Less-More</option>
+            <option value="more-less">More-Less</option>
+          </select>
+          <button class="bg-green-700 text-white w-[60px] rounded px-1" type="submit">Search</button>
+  
+  
+        </div>
+      </form>
+      <button class="relative text-white mt-3 w-full bg-green-700 py-1 rounded" type="button" data-toggle="offcanvas"
+          data-target="#offcanvasRight" aria-controls="offcanvasRight">
+          Bookmarks
+  
+          <span
+            class="absolute top-0 start-100 translate-middle badge rounded-full bg-red-500 js-booked-books-count"></span>
+  
+        </button>
+    </div>
+  </header>
+
+  <main>
+      <section class="hero">
+        <div class="container mx-auto w-[1240px] px-5">
+          <p class="alert alert-danger hidden js-not-found-book" id="alert" role="alert"></p>
+          <img class="loading-svg" src="./images/loader.svg" alt="Book is loading...">
+  
+          <ul class="js-book-list list-none flex flex-wrap justify-between"></ul>
+  
+        </div>
+      </section>
+  
+  
+  
+      <section class="watchlist">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+          <div class="offcanvas-header">
+  
+            <h3 class="offcanvas-title" id="offcanvasRightLabel">
+              Bookmarked Books
+            </h3>
+  
+            <button type="button" class="btn-close" data-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="watchlist list-none" id="watchlist"></ul>
+          </div>
+        </div>
+      </section>
+  </main>
+  
+  <!-- MODAL BS -->
+  
+    <!-- <div class="modal fade book-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+  
+    <div class="modal-dialog modal-xl">
+  
+      <div class="modal-content">
+  
+        <div class="modal-body flex items-center">
+  
+          <div class="flex-shrink-0">
+            <h3 class="book-modal__title"></h3>
+  
+            <iframe class="book-modal__iframe" width="447" height="251" src=""
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+  
+          </div>
+  
+          <div class="flex-grow d-flex flex-column justify-content-between">
+  
+            <div class="book-modal__wrapper">
+  
+              <div class="book-modal__publish-time d-flex justify-content-between my-2">
+                <span class="book-modal__list-rating d-flex align-items-center rating-icon"></span>
+                <time class="book-modal__list-year d-flex align-items-center year-icon" datetime="2017-02-13"></time>
+                <time class="book-modal__list-runtime d-flex align-items-center runtime-icon" datetime="2024-02-13">
+  
+                </time>
+              </div>
+  
+              <p class="book-modal__categories mb-2"></p>
+              <p class="book-modal__summary"></p>
+            </div>
+  
+            <a class="book-modal__imdb-link d-flex align-items-center" href="#" target="_blank">Show on IMDB</a>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>   -->
+
+   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h3 class="offcanvas-title" id="offcanvasRightLabel">Bookmarked Books</h3>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="watchlist list-none" id="watchlist"></ul>
+    </div>
+  </div> 
+  
+  <!-- MODAL ITEM TEMPLATE  -->
+ <template class="js-book-item-template">
+  <li class="book-list__item  w-[280px] col-3 mb-2 bg-zinc-500 mb-4 rounded-md">
+    <div class="book-list__wrapper flex flex-col justify-between p-3 text-white">
+      <img class="book-list__poster h-[310px] mx-auto" src="" alt="" width="255" height="400">
+      <h4 class="book-list__heading my-2 font-bold text-base ">Title</h4>
+      <p class="book-list__author">Author</p>
+      <div class="book-list__publish flex justify-between">
+        <span class="book-list__year flex items-center rating-icon">7.4</span>
+        <time class="book-list__page flex items-center year-icon" datetime="2017-02-13"></time>
+        <time class="book-list__language flex items-center runtime-icon" datetime="2017-02-13"></time>
+      </div>
+      <a class="book_list__wiki-link my-1" href="" target="blank">Wikipediya</a>
+      <button class="bg-green-700 w-full book-list__bookmark-btn bookmark-btn p-1 rounded-lg" type="button">Add
+        readlist</button>
+    </div>
+  </li>
+</template>
+
+<template class="js-bookmarked-template">
+  <li class="watchlist__item mb-2 text-center text-gray-800 py-2">
+    <img class="book-list__poster w-48 mx-auto" src="" alt="">
+    <strong class="book-list__heading">Title</strong>
+    <p class="book-list__author">Author</p>
+    <div class="book-list__publish flex justify-between">
+      <span class="book-list__year flex items-center rating-icon">7.4</span>
+      <time class="book-list__page flex items-center year-icon" datetime="2017-02-13"></time>
+      <time class="book-list__language flex items-center runtime-icon" datetime="2017-02-13"></time>
+    </div>
+    <a class="book-list__wiki-link" href="#" target="_blank">Wikipedia</a>
+    <button class="btn btn-danger w-48 book-list__delete-btn" type="button"> DELETE</button>
+  </li>
+</template>
+
+  
+
+
+
+
+
+
+
+
+
+  <!-- scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+  crossorigin="anonymous"></script>
+
+  <script src="/js/books.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
+
+
+
